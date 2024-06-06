@@ -150,8 +150,40 @@ variable "dbsg_config" {
 }
 
 variable "public_key_path" {
-  type        = string
-  default     = "~/.ssh/id_rsa.pub"
+  type    = string
+  default = "~/.ssh/id_rsa.pub"
+  # default = "C:\temp\manual_keypair\tls_keypairr\my.pub" This notation error occured, below notation workedout till fmt and validate
+  #default     = "~/manual_keypair/tls_keypairr/my.pub" # but didnt worked when we did apply error is " below written"
   description = "This is my public key pair"
+
+}
+
+# # "╷ 
+# │ Error: Invalid function argument
+# │
+# │   on appserver.tf line 3, in resource "aws_key_pair" "private":
+# │    3:   public_key = file(var.public_key_path)
+# │     ├────────────────
+# │     │ while calling file(path)
+# │     │ var.public_key_path is "~/manual_keypair/tls_keypairr/my.pub"
+# │
+# │ Invalid value for "path" parameter: no file exists at "~/manual_keypair/tls_keypairr/my.pub"; this function works
+# │ only with files that are distributed as part of the configuration source code, so if this file will be created by a
+# │ resource in this configuration you must instead obtain this result from an attribute of that resource."
+
+variable "ubuntu_ami_id" {
+  type    = string
+  default = "ami-08012c0a9ee8e21c4"
+}
+
+variable "app_instance_size" {
+  type    = string
+  default = "t2.micro"
+
+}
+
+variable "app_subnet_name" {
+  type    = string
+  default = "app1"
 
 }
